@@ -1,45 +1,210 @@
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-export default function ProductList() {
+const PRODUCT_DATA = {
+  bestSellers: [
+    { id: 1, name: "HP EOS 800D", price: "22.000.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/kisspng-single-lens-reflex-camera-photography-digital-came-7d-side-5ab06dcdd82109-8187864315215118858853.png", subtitle: "MÁY ẢNH HP BLUE", badge: "Hot" },
+    { id: 2, name: "HP EOS 600D", price: "18.500.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/pngtree-canon-png-free-download-png-image_11620600.png", subtitle: "MÁY ẢNH HP RED" },
+    { id: 3, name: "HP EOS 200D", price: "15.000.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/Hinh_anh_-_Banner_top-removebg-preview.png", subtitle: "MÁY ẢNH HP CAM" },
+    { id: 4, name: "HP EOS 800D", price: "22.000.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/kisspng-single-lens-reflex-camera-photography-digital-came-7d-side-5ab06dcdd82109-8187864315215118858853.png", subtitle: "MÁY ẢNH HP BLUE" },
+    { id: 5, name: "HP EOS 600D", price: "18.500.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/pngtree-canon-png-free-download-png-image_11620600.png", subtitle: "MÁY ẢNH HP RED" },
+    { id: 6, name: "HP EOS 200D", price: "15.000.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/Hinh_anh_-_Banner_top-removebg-preview.png", subtitle: "MÁY ẢNH HP CAM" },
+    { id: 7, name: "HP EOS 800D", price: "22.000.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/kisspng-single-lens-reflex-camera-photography-digital-came-7d-side-5ab06dcdd82109-8187864315215118858853.png", subtitle: "MÁY ẢNH HP BLUE" },
+    { id: 8, name: "HP EOS 600D", price: "18.500.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/pngtree-canon-png-free-download-png-image_11620600.png", subtitle: "MÁY ẢNH HP RED" },
+  ],
+  newArrivals: [
+    { id: 9, name: "HP EOS 800D", price: "22.000.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/kisspng-single-lens-reflex-camera-photography-digital-came-7d-side-5ab06dcdd82109-8187864315215118858853.png", subtitle: "MÁY ẢNH HP BLUE", badge: "Mới" },
+    { id: 10, name: "HP EOS 600D", price: "18.500.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/pngtree-canon-png-free-download-png-image_11620600.png", subtitle: "MÁY ẢNH HP RED" },
+    { id: 11, name: "HP EOS 200D", price: "15.000.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/Hinh_anh_-_Banner_top-removebg-preview.png", subtitle: "MÁY ẢNH HP CAM" },
+    { id: 12, name: "HP EOS 800D", price: "22.000.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/kisspng-single-lens-reflex-camera-photography-digital-came-7d-side-5ab06dcdd82109-8187864315215118858853.png", subtitle: "MÁY ẢNH HP BLUE", badge: "Mới" },
+    { id: 13, name: "HP EOS 600D", price: "18.500.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/pngtree-canon-png-free-download-png-image_11620600.png", subtitle: "MÁY ẢNH HP RED" },
+    { id: 14, name: "HP EOS 200D", price: "15.000.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/Hinh_anh_-_Banner_top-removebg-preview.png", subtitle: "MÁY ẢNH HP CAM" },
+    { id: 15, name: "HP EOS 800D", price: "22.000.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/kisspng-single-lens-reflex-camera-photography-digital-came-7d-side-5ab06dcdd82109-8187864315215118858853.png", subtitle: "MÁY ẢNH HP BLUE" },
+    { id: 16, name: "HP EOS 600D", price: "18.500.000đ", img: "https://chomayanh.vn/wp-content/uploads/2026/04/pngtree-canon-png-free-download-png-image_11620600.png", subtitle: "MÁY ẢNH HP RED" },
+  ],
+  leicaProducts: [
+    { id: 17, name: "Leica Leitzphone powered by Xiaomi", price: "Liên hệ", img: "https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-127081-Leitzphone_Black_Back_1920x1440px.webp?itok=DTtfUwdc", subtitle: "Điện thoại Leitzphone" },
+    { id: 18, name: "Noctilux-M 35 f/1.2 ASPH.", price: "Liên hệ", img: "https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-126378-11635_Leica_Noctilux-M_35_f1_2_ASPH_upright_1920px.webp?itok=mD93j4l5", subtitle: "Ống kính huyền thoại" },
+    { id: 19, name: "Leica Q3 Monochrom", price: "Liên hệ", img: "https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-124986-19200_Leica_Q3_Monochrom_front_1920px.webp?itok=7G711CH8", subtitle: "Q3 Series" },
+    { id: 20, name: "Leica SL3 Reporter", price: "Liên hệ", img: "https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-124798-10661_Leica_SL3_Reporter_front_1920px.webp?itok=PaXtg7Tq", subtitle: "Phiên bản phóng viên" },
+    { id: 21, name: "Leica M EV1", price: "Liên hệ", img: "https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-124583-20229_Leica_M_EV1_front_1920px.webp?itok=Q6m5G-Hd", subtitle: "Hệ thống M Mới" },
+    { id: 22, name: "Leica D-Lux 8 100 YEARS OF LEICA", price: "Liên hệ", img: "https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-122758-19197_D-Lux-8_100-YEARS-OF-LEICA_front_1920px.webp?itok=Yu9n9qcW", subtitle: "D-LUX Series", badge: "Kỷ niệm" },
+    { id: 23, name: "Leica SOFORT 2 100 YEARS OF LEICA", price: "Liên hệ", img: "https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-122768-19195_SOFORT-2_100-YEARS-OF-LEICA_front_lenscap_1920px.webp?itok=FgP1G3vc", subtitle: "SOFORT Kỷ niệm" },
+    { id: 24, name: "Vario-Elmarit-SL 28-70 f/2.8 ASPH.", price: "Liên hệ", img: "https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-122438-11196_Leica_Vario-Elmarit-SL_28-70_f_2_8_upright_1920px.webp?itok=tuhOX3yO", subtitle: "Ống kính SL" },
+    { id: 25, name: "Leica ZM 2 Urban Green", price: "Liên hệ", img: "https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-122321-98289_Leica_ZM2_Urban_Green_Milanaise_Stainless_Steel_metal_bracelet_front_1920px_0.webp?itok=TCzr9h9b", subtitle: "Đồng hồ Leica" },
+    { id: 26, name: "Leica M11-P Safari", price: "Liên hệ", img: "https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-121649-20235_M11-P_safari_front_1920px.webp?itok=RksBjFaK", subtitle: "M11 Phiên bản Safari" },
+  ]
+};
+
+const ProductCard = ({ item }: { item: any }) => (
+  <Link to={`/product/${item.id}`} className="block h-[400px] bg-[#fafafa] hover:bg-white border border-transparent hover:border-gray-100 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all duration-700 rounded-[2rem] p-8 flex flex-col items-center justify-between group overflow-hidden relative">
+    <div className="w-full text-left z-10 flex justify-between items-start">
+      <div>
+        <h3 className="text-xl font-medium text-gray-900 tracking-tight">{item.name}</h3>
+        <p className="text-xs font-medium text-gray-500 mt-1 uppercase tracking-wider">{item.subtitle}</p>
+      </div>
+      {item.badge && <span className="inline-block mt-0.5 px-3 py-1 text-[10px] uppercase font-bold tracking-widest bg-gray-900 text-white rounded-full">{item.badge}</span>}
+    </div>
+    
+    <div className="flex-1 w-full flex items-center justify-center relative z-10 py-6">
+      <div className="w-48 h-48 bg-gray-200 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-3xl opacity-0 group-hover:opacity-40 transition-opacity duration-1000"></div>
+      <img src={item.img} alt={item.name} className="w-[85%] max-w-[220px] object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.12)] group-hover:-translate-y-2 group-hover:scale-105 group-hover:drop-shadow-[0_25px_35px_rgba(0,0,0,0.15)] transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] relative z-10" />
+    </div>
+    
+    <div className="w-full flex justify-between items-end z-10">
+      <span className="text-[17px] font-medium text-gray-800 tracking-tight">{item.price}</span>
+      <div className="flex items-center opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]">
+        <button 
+          onClick={(e) => { e.preventDefault(); alert("Đã thêm vào giỏ hàng!"); }}
+          className="bg-black text-white px-3 py-1.5 rounded-full text-[11px] uppercase tracking-widest font-semibold hover:bg-black/80 transition-colors flex items-center gap-1 mr-2"
+        >
+          <span className="material-symbols-outlined text-[14px]">add_shopping_cart</span>
+          Thêm
+        </button>
+        <div className="flex items-center gap-1">
+          <span className="text-[11px] uppercase tracking-widest font-semibold text-gray-900">Chi tiết</span>
+          <span className="material-symbols-outlined text-[14px]">arrow_outward</span>
+        </div>
+      </div>
+    </div>
+  </Link>
+);
+
+const CarouselSection = ({ title, items }: { title: string, items: any[] }) => {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  
+  // Create columns of 2 rows
+  const columns = [];
+  for (let i = 0; i < items.length; i += 2) {
+    const col = [items[i]];
+    if (i + 1 < items.length) col.push(items[i + 1]);
+    columns.push(col);
+  }
+
+  useEffect(() => {
+    if (isHovered) return; // Pause on hover
+
+    const timer = setInterval(() => {
+      if (scrollContainerRef.current) {
+        const container = scrollContainerRef.current;
+        const firstChild = container.children[0] as HTMLElement;
+        if (firstChild) {
+          const itemWidth = firstChild.offsetWidth + 24; // 24 is the gap (gap-6)
+          
+          if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 10) {
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            container.scrollBy({ left: itemWidth, behavior: 'smooth' });
+          }
+        }
+      }
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [isHovered]);
+
   return (
-    <div className="bg-background text-on-background font-body selection:bg-primary/20 min-h-screen">
+    <div 
+      className="mb-32"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-10 flex justify-between items-end">
+        <h2 className="text-4xl md:text-5xl font-light text-black tracking-tight">{title}</h2>
+        <div className="flex gap-4 hidden md:flex">
+          <button 
+            className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-black hover:text-white transition-colors"
+            onClick={() => {
+              const el = scrollContainerRef.current;
+              if (el) el.scrollBy({ left: -(el.children[0] as HTMLElement).offsetWidth - 24, behavior: 'smooth' });
+            }}
+          >
+            <span className="material-symbols-outlined text-sm">arrow_back_ios_new</span>
+          </button>
+          <button 
+            className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-black hover:text-white transition-colors"
+            onClick={() => {
+              const el = scrollContainerRef.current;
+              if (el) el.scrollBy({ left: (el.children[0] as HTMLElement).offsetWidth + 24, behavior: 'smooth' });
+            }}
+          >
+            <span className="material-symbols-outlined text-sm">arrow_forward_ios</span>
+          </button>
+        </div>
+      </div>
+      
+      <div className="w-full overflow-hidden">
+        <div 
+          ref={scrollContainerRef}
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar px-6 md:px-12 pb-8"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {columns.map((col, idx) => (
+            <div key={idx} className="flex-none w-[85vw] sm:w-[calc(50%-12px)] md:w-[calc(33.33333%-16px)] flex flex-col gap-6 snap-start">
+              {col.map(item => (
+                <ProductCard key={item.id} item={item} />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default function ProductList() {
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  const heroImages = [
+    "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2000&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?q=80&w=2000&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1512790182412-b19e6d62bc39?q=80&w=2000&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1564466809058-bf4114d55352?q=80&w=2000&auto=format&fit=crop"
+  ];
+
+  useEffect(() => {
+    const heroInterval = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % heroImages.length);
+    }, 4000);
+    return () => clearInterval(heroInterval);
+  }, []);
+
+  return (
+    <div className="bg-white text-black font-body selection:bg-black/10 min-h-screen">
       <Header />
 
       <main className="pt-24 pb-12 w-full">
-        {/* Banner Section */}
-        <section className="relative max-w-container_max mx-auto px-margin_mobile md:px-gutter mb-12">
-          <div className="relative w-full h-[50vh] min-h-[400px] rounded-3xl overflow-hidden shadow-2xl group flex flex-col items-center justify-center p-8 text-center text-white">
-            <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline 
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-[20s] group-hover:scale-105"
-            >
-              <source src="https://videos.pexels.com/video-files/3201594/3201594-uhd_2560_1440_25fps.mp4" type="video/mp4" />
-            </video>
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
-            
-            <div className="relative z-10 max-w-3xl border border-white/20 p-8 md:p-12 backdrop-blur-md rounded-2xl bg-black/20">
-              <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white border border-white/20 text-xs font-bold tracking-widest uppercase mb-4 shadow-lg shrink-0">Máy ảnh & Ống kính</span>
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Khám Phá Thiết Bị</h1>
-              <p className="text-lg text-white/80 max-w-xl mx-auto font-medium">Tìm kiếm, lọc và sở hữu các thiết bị nhiếp ảnh hàng đầu thế giới từ những thương hiệu uy tín.</p>
+        {/* Top Banner Section */}
+        <section className="relative w-full mb-8 flex justify-center px-6">
+          <div className="relative w-full max-w-[1400px] h-[600px] rounded-[2rem] overflow-hidden flex flex-col items-center justify-center text-white bg-black">
+            {heroImages.map((src, index) => (
+              <img
+                key={src}
+                src={src}
+                alt={`Hero Camera ${index + 1}`}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+                  index === heroIndex ? 'opacity-100' : 'opacity-0'
+                }`}
+              />
+            ))}
+            <div className="absolute inset-0 bg-black/20" />
+            <div className="relative z-10 text-center max-w-2xl px-4">
+               {/* Banner text removed per user request */}
             </div>
           </div>
         </section>
 
-        <div className="max-w-container_max mx-auto px-margin_mobile md:px-gutter py-4">
-          {/* Floating Filter Bar */}
-          <section className="bg-gray-100 py-8 mb-12 rounded-[2rem]">
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="bg-white p-6 md:p-8 rounded-[2rem] shadow-sm grid grid-cols-1 md:grid-cols-4 gap-8 border border-gray-200">
-              <div className="flex flex-col gap-3">
-                <label className="font-label-sm text-gray-600 flex items-center gap-2 uppercase tracking-tighter">
-                  <span className="material-symbols-outlined text-sm">camera_enhance</span> Thương hiệu
+        <div className="w-full py-4">
+          {/* Minimal Filter Bar */}
+          <section className="mb-24 border-b border-gray-200 pb-6 mt-8">
+            <div className="max-w-[1400px] mx-auto px-6 md:px-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 items-end">
+              <div className="flex flex-col gap-2">
+                <label className="text-[10px] text-gray-500 flex items-center gap-2 uppercase tracking-widest font-bold">
+                  Thương hiệu
                 </label>
-                <select className="w-full h-12 border border-gray-200 rounded-xl bg-gray-50 text-black focus:ring-2 focus:ring-black px-4 cursor-pointer outline-none">
+                <select className="w-full h-10 border-b border-gray-300 bg-transparent text-black text-sm focus:border-black cursor-pointer outline-none transition-colors px-0">
                   <option>Tất cả thương hiệu</option>
                   <option>Sony Alpha</option>
                   <option>Canon EOS</option>
@@ -47,214 +212,58 @@ export default function ProductList() {
                   <option>Nikon Z</option>
                 </select>
               </div>
-              <div className="flex flex-col gap-3">
-                <label className="font-label-sm text-gray-600 flex items-center gap-2 uppercase tracking-tighter">
-                  <span className="material-symbols-outlined text-sm">payments</span> Mức giá
+              <div className="flex flex-col gap-2">
+                <label className="text-[10px] text-gray-500 flex items-center gap-2 uppercase tracking-widest font-bold">
+                  Mức giá
                 </label>
-                <select className="w-full h-12 border border-gray-200 rounded-xl bg-gray-50 text-black focus:ring-2 focus:ring-black px-4 cursor-pointer outline-none">
+                <select className="w-full h-10 border-b border-gray-300 bg-transparent text-black text-sm focus:border-black cursor-pointer outline-none transition-colors px-0">
                   <option>Mọi mức giá</option>
                   <option>Dưới 30 triệu</option>
                   <option>30 - 70 triệu</option>
                   <option>Trên 70 triệu</option>
                 </select>
               </div>
-              <div className="flex flex-col gap-3">
-                <label className="font-label-sm text-gray-600 flex items-center gap-2 uppercase tracking-tighter">
-                  <span className="material-symbols-outlined text-sm">inventory_2</span> Tình trạng
+              <div className="flex flex-col gap-2">
+                <label className="text-[10px] text-gray-500 flex items-center gap-2 uppercase tracking-widest font-bold">
+                  Tình trạng
                 </label>
-                <select className="w-full h-12 border border-gray-200 rounded-xl bg-gray-50 text-black focus:ring-2 focus:ring-black px-4 cursor-pointer outline-none">
+                <select className="w-full h-10 border-b border-gray-300 bg-transparent text-black text-sm focus:border-black cursor-pointer outline-none transition-colors px-0">
                   <option>Tất cả tình trạng</option>
                   <option>Mới 100% (Seal)</option>
                   <option>Cũ (Like New 99%)</option>
                 </select>
               </div>
-              <div className="flex items-end">
-                <button className="w-full h-12 bg-black text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-all shadow-lg">
-                  <span className="material-symbols-outlined">search</span>
-                  Tìm sản phẩm
+              <div className="flex items-end h-10">
+                <button className="text-sm font-bold text-black uppercase tracking-widest border-b-2 border-transparent hover:border-black transition-colors pb-1 flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[18px]">search</span>
+                  Khám phá
                 </button>
               </div>
             </div>
+          </section>
+
+          {/* Product Sections with Carousel 3 cols x 2 rows sliding by 1 col */}
+          <CarouselSection title="Sản phẩm nổi bật" items={PRODUCT_DATA.bestSellers} />
+          
+          {/* Middle Promotional Banner */}
+          <section className="relative w-[calc(100%-3rem)] max-w-[1400px] h-[500px] mx-auto mb-32 rounded-[2rem] overflow-hidden flex flex-col items-start justify-center p-10 md:p-16 text-white bg-black">
+             <img src="https://images.unsplash.com/photo-1516961642265-531546e84af2?auto=format&fit=crop&q=80&w=2000" className="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-[20s] hover:scale-105" alt="Promo" />
+             <div className="relative z-10 max-w-lg">
+                <h2 className="text-4xl md:text-5xl font-light mb-6 tracking-tight drop-shadow-md">Nền tảng của sự sáng tạo.</h2>
+                <p className="text-lg md:text-xl font-light text-white/90 mb-8 tracking-wide drop-shadow-sm">Khám phá dòng ống kính G Master đỉnh cao mới nhất dành cho hệ máy ảnh full-frame chuyên nghiệp.</p>
+                <Link to="/product/1" className="inline-block bg-white text-black px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-gray-200 transition-colors">
+                  Khám phá ngay
+                </Link>
+             </div>
+          </section>
+
+          <CarouselSection title="Sản phẩm mới" items={PRODUCT_DATA.newArrivals} />
+
+          {/* Third Product Section: Leica */}
+          <div className="mt-8 pt-8">
+            <CarouselSection title="Khám phá di sản Leica" items={PRODUCT_DATA.leicaProducts} />
           </div>
-        </section>
 
-        <div className="flex flex-col gap-12">
-          {/* Main Content Area */}
-          <div className="flex-1">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 gap-6 border-b border-outline-variant pb-8">
-              <div>
-                <h1 className="font-h2 text-4xl mb-2 text-on-surface">Máy ảnh &amp; Ống kính</h1>
-                <p className="text-on-surface-variant flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                  Hiển thị 24 trong số 156 sản phẩm cao cấp
-                </p>
-              </div>
-              <div className="flex items-center gap-4 bg-surface-container px-4 py-2 rounded-xl">
-                <span className="text-xs font-bold text-outline uppercase tracking-widest">Sắp xếp:</span>
-                <select className="bg-transparent border-none text-sm font-bold text-on-surface focus:ring-0 cursor-pointer p-0 outline-none">
-                  <option>Mới nhất</option>
-                  <option>Giá: Thấp đến Cao</option>
-                  <option>Giá: Cao đến Thấp</option>
-                  <option>Phổ biến nhất</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Card 1: Sony A7IV */}
-              <div className="group bg-surface-container-lowest rounded-2xl overflow-hidden border border-outline-variant/40 hover:border-primary/20 hover:-translate-y-1 hover:shadow-2xl transition-all duration-400">
-                <Link className="relative aspect-[4/3] overflow-hidden bg-surface-container block" to="/product/1">
-                  <span className="absolute top-4 left-4 z-10 bg-primary text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">New Arrival</span>
-                  <img alt="Sony A7IV" className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5WgbOLZBgH2kcmpFPPnUHSktqAF02QJUiLLXUUxCRk-1WdHmJ1ST2pVbgoUeqBPWMvIshnQWJJUI_IMzvGgXnC9-5TeeDsofUPo7LV_Bi2bSWaf0ZioX-Re_hp7nZSz_NzzH_rd_tIL4pVuLRgU1C-SN8d8VMe9a2sDhYyi3JocgHdpeKc3eIwba1rX0bvoZfo5A_DtKsL5uTjiTD10wDxcgUuEngwrk_fvkcpQ3rvCjY4gF7VA-nWD-kPzT422ZHHiA2GIyi9Q"/>
-                </Link>
-                <div className="p-8">
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="font-h3 text-lg leading-tight text-on-surface group-hover:text-primary transition-colors"><Link to="/product/1">Sony Alpha A7 IV (Body Only)</Link></h3>
-                    <button className="text-outline hover:text-error transition-all hover:scale-110 active:scale-90"><span className="material-symbols-outlined">favorite</span></button>
-                  </div>
-                  <p className="text-sm text-on-surface-variant mb-6 line-clamp-2">Cảm biến Full-frame Exmor R CMOS 33.0MP, quay 4K 60p chuyên nghiệp.</p>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="block text-[11px] text-outline font-bold line-through mb-1">62.990.000đ</span>
-                      <span className="font-price text-primary text-2xl">58.500.000đ</span>
-                    </div>
-                    <Link to="/cart" className="bg-inverse-surface text-white w-12 h-12 flex items-center justify-center rounded-2xl hover:bg-primary transition-all shadow-lg active:scale-95 group/btn">
-                      <span className="material-symbols-outlined group-hover/btn:scale-110 transition-transform">add_shopping_cart</span>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 2: Canon R6 II */}
-              <div className="group bg-surface-container-lowest rounded-2xl overflow-hidden border border-outline-variant/40 hover:border-secondary/20 hover:-translate-y-1 hover:shadow-2xl transition-all duration-400">
-                <Link className="relative aspect-[4/3] overflow-hidden bg-surface-container block" to="/product/2">
-                  <span className="absolute top-4 left-4 z-10 bg-secondary text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">Hot Sale</span>
-                  <img alt="Canon EOS R6 Mark II" className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMeRFv1b2d6DFKULFtCDMA4zkEzI62onxJ3cjrFy-y18upyZ4_YfWKo_Sjj-KgOhfZ8x3lLUtU_UTpIdB43GyekC8E9ykK0l1oHZkayZGvIIIPGMPXgfx7DD4641mI240G8vSUTtDRBwdyFtCi6JMhTzQC35Bc7z1KfY9yhW7h3Oi2m2KwZDgOEj-KHmpnJS7MTDrfDCmtMkbZjklH0lUhuXpxMWwG21EjPGXkP8Pm_j8I4mlZLBX8L3Gb7Kz_--WK8Wj-haLulg"/>
-                </Link>
-                <div className="p-8">
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="font-h3 text-lg leading-tight text-on-surface group-hover:text-primary transition-colors"><Link to="/product/2">Canon EOS R6 Mark II</Link></h3>
-                    <button className="text-outline hover:text-error transition-all"><span className="material-symbols-outlined">favorite</span></button>
-                  </div>
-                  <p className="text-sm text-on-surface-variant mb-6 line-clamp-2">Cảm biến 24.2MP CMOS, Chụp liên tiếp 40 fps, AF thế hệ mới.</p>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="block text-[11px] text-outline font-bold line-through mb-1">65.000.000đ</span>
-                      <span className="font-price text-primary text-2xl">61.900.000đ</span>
-                    </div>
-                    <button className="bg-inverse-surface text-white w-12 h-12 flex items-center justify-center rounded-2xl hover:bg-primary transition-all shadow-lg text-primary">
-                      <span className="material-symbols-outlined text-white">add_shopping_cart</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 3: Fuji X-T5 */}
-              <div className="group bg-surface-container-lowest rounded-2xl overflow-hidden border border-outline-variant/40 hover:-translate-y-1 hover:shadow-2xl transition-all duration-400">
-                <Link className="relative aspect-[4/3] overflow-hidden bg-surface-container block" to="/product/3">
-                  <img alt="Fujifilm X-T5" className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsWf6KF4JP33s1FhQdvO2MwEnfBuH94HJsTok2mcDJJsMFTWYL_mJLJfw7TDGCrGxH0ZlhkfjX0VU7lvKSRadq-aQkBho6J8_YK00-J8figPFC9blcPHy3Sz2eLIAoCX6C9PI7Ad4uJIey53ojw5tBLPPo3FdWHq1S2X7BRWBYB7zxKW7wrnCDVDPcHG3yuddR5hRYj9fhXYGOEX3D1pHikd89wtgyg07WeaUlpCu9LKAWIjcrY7QxagP7MUWGMJo3FbdabvR5kg"/>
-                </Link>
-                <div className="p-8">
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="font-h3 text-lg leading-tight text-on-surface group-hover:text-primary transition-colors"><Link to="/product/3">Fujifilm X-T5 Mirrorless (Silver)</Link></h3>
-                    <button className="text-outline hover:text-error transition-all"><span className="material-symbols-outlined">favorite</span></button>
-                  </div>
-                  <p className="text-sm text-on-surface-variant mb-6 line-clamp-2">40.2MP APS-C X-Trans CMOS 5 HR BSI, quay 6.2K/30p đẳng cấp.</p>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="font-price text-primary text-2xl">43.500.000đ</span>
-                    </div>
-                    <button className="bg-inverse-surface text-white w-12 h-12 flex items-center justify-center rounded-2xl hover:bg-primary transition-all shadow-lg text-primary">
-                      <span className="material-symbols-outlined text-white">add_shopping_cart</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-               {/* Card 4: Sony 35mm GM */}
-              <div className="group bg-surface-container-lowest rounded-2xl overflow-hidden border border-outline-variant/40 hover:-translate-y-1 hover:shadow-2xl transition-all duration-400">
-                <Link className="relative aspect-[4/3] overflow-hidden bg-surface-container block" to="/product/4">
-                  <span className="absolute top-4 left-4 z-10 bg-surface-container-highest text-on-surface text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest shadow-md">Lướt - 99%</span>
-                  <img alt="Sony 35mm GM" className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLWk4q7aQMN93ODNAmNnWJ8ZLV_Euikc-ANYhahySSJbJl-fMnBxKViOe0Pl-E36oNOz_G4r-6UtcJYWu-mkN8SfuaC1gfqOlq7OT1ez0X9GZlwWOTpEIhqluROq0ITrZ3J3y7lvR-ygr9CJxzmPpKHcW4vjHNOSwwmdVRLIChCiom1UlHrpm_HgUpYl_ec4ukJnfZy-qNGTa6FKmdJF0QWkfklNhHTVQd0g45ZlHd4oL3gT7rSAcPVLWILYWJXpJbgihF2tO8-Q"/>
-                </Link>
-                <div className="p-8">
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="font-h3 text-lg leading-tight text-on-surface group-hover:text-primary transition-colors"><Link to="/product/4">Sony FE 35mm f/1.4 G Master</Link></h3>
-                    <button className="text-outline hover:text-error transition-all"><span className="material-symbols-outlined">favorite</span></button>
-                  </div>
-                  <p className="text-sm text-on-surface-variant mb-6 line-clamp-2">Ống kính fix cao cấp cho Full-frame, độ nét kinh ngạc, bokeh mượt.</p>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="font-price text-primary text-2xl">31.200.000đ</span>
-                    </div>
-                    <button className="bg-inverse-surface text-white w-12 h-12 flex items-center justify-center rounded-2xl hover:bg-primary transition-all shadow-lg text-primary">
-                      <span className="material-symbols-outlined text-white">add_shopping_cart</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-               {/* Card 5: Canon RF 24-70 */}
-              <div className="group bg-surface-container-lowest rounded-2xl overflow-hidden border border-outline-variant/40 hover:-translate-y-1 hover:shadow-2xl transition-all duration-400">
-                <Link className="relative aspect-[4/3] overflow-hidden bg-surface-container block" to="/product/5">
-                  <img alt="Canon RF 24-70mm" className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6zVir2X85VQEU-oGbbNrkg9EmUSPXenJtd1hqtacgdy9hQlNJdJf-Ei7-ioTzX76dzV-nFCwUrk7zLUGPT-p95EKqPpXDSBQH0hZQ5iizF2EnvC5y9YsPl7Ws3bsH-v6X8paj9Kf31eX7vEcWi8WSDjPO2_oV7krO37R3AlYwMw_JaoHqUjltBfIWorvG53KmKUjAP6AvNvFpsx5oVxx9kUbwIxPazvzsh2ipQWAc5xmu25F-jdKAvc8NyYXFitc_inztxsZ89Q"/>
-                </Link>
-                <div className="p-8">
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="font-h3 text-lg leading-tight text-on-surface group-hover:text-primary transition-colors"><Link to="/product/5">Canon RF 24-70mm f/2.8L IS USM</Link></h3>
-                    <button className="text-outline hover:text-error transition-all"><span className="material-symbols-outlined">favorite</span></button>
-                  </div>
-                  <p className="text-sm text-on-surface-variant mb-6 line-clamp-2">Ống kính zoom đa dụng dòng L, chống rung 5-stop, độ mở f/2.8.</p>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="font-price text-primary text-2xl">52.800.000đ</span>
-                    </div>
-                    <button className="bg-inverse-surface text-white w-12 h-12 flex items-center justify-center rounded-2xl hover:bg-primary transition-all shadow-lg text-primary">
-                      <span className="material-symbols-outlined text-white">add_shopping_cart</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-               {/* Card 6: Fuji 56mm f1.2 */}
-              <div className="group bg-surface-container-lowest rounded-2xl overflow-hidden border border-outline-variant/40 hover:-translate-y-1 hover:shadow-2xl transition-all duration-400">
-                <Link className="relative aspect-[4/3] overflow-hidden bg-surface-container block" to="/product/6">
-                  <img alt="Fujifilm 56mm" className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF9AdbdOuUWUAVCLXn39gA_KAFg9ty7KsJFovsVAXpXqjgWQmYi6dKGnrZ9TFo2z7ul5zlgGYwGshRDqBdZAGWgEyBD82rea6WG9b3norXVcXrK1PS93pBSfW54fdYcSBwak2xjyy92gjXwZXY8vZv3b869a-8LKrE-bFSS8MdTjUqk1gEW7qiDRDKQja3pK737j5Kd8hmWXZGvR-P-9EYrwAQglReMRPJR3d1IZRR0DS6n_k0whGN6Xdaw-PRFAGQyyGga4DYNg"/>
-                </Link>
-                <div className="p-8">
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="font-h3 text-lg leading-tight text-on-surface group-hover:text-primary transition-colors"><Link to="/product/6">Fujifilm XF 56mm f/1.2 R WR</Link></h3>
-                    <button className="text-outline hover:text-error transition-all"><span className="material-symbols-outlined">favorite</span></button>
-                  </div>
-                  <p className="text-sm text-on-surface-variant mb-6 line-clamp-2">Ống kính chân dung thế hệ mới, kháng thời tiết, xóa phông đỉnh cao.</p>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="font-price text-primary text-2xl">24.500.000đ</span>
-                    </div>
-                    <button className="bg-inverse-surface text-white w-12 h-12 flex items-center justify-center rounded-2xl hover:bg-primary transition-all shadow-lg text-primary">
-                      <span className="material-symbols-outlined text-white">add_shopping_cart</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Pagination */}
-            <div className="mt-20 flex justify-center items-center gap-3">
-              <button className="w-12 h-12 flex items-center justify-center rounded-xl border border-outline-variant hover:bg-inverse-surface hover:text-white transition-all">
-                <span className="material-symbols-outlined">chevron_left</span>
-              </button>
-              <button className="w-12 h-12 flex items-center justify-center rounded-xl bg-inverse-surface text-white font-bold shadow-lg">1</button>
-              <button className="w-12 h-12 flex items-center justify-center rounded-xl border border-outline-variant hover:bg-inverse-surface hover:text-white transition-all font-bold">2</button>
-              <button className="w-12 h-12 flex items-center justify-center rounded-xl border border-outline-variant hover:bg-inverse-surface hover:text-white transition-all font-bold">3</button>
-              <span className="px-3 text-outline font-bold">...</span>
-              <button className="w-12 h-12 flex items-center justify-center rounded-xl border border-outline-variant hover:bg-inverse-surface hover:text-white transition-all font-bold">12</button>
-              <button className="w-12 h-12 flex items-center justify-center rounded-xl border border-outline-variant hover:bg-inverse-surface hover:text-white transition-all">
-                <span className="material-symbols-outlined">chevron_right</span>
-              </button>
-            </div>
-          </div>
-        </div>
         </div>
       </main>
 

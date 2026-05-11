@@ -49,83 +49,87 @@ export default function Home() {
         {/* Sản phẩm bán chạy (Product Highlights) */}
         <section className="py-24 bg-white">
           <div className="max-w-[1600px] mx-auto px-4 md:px-8">
-            <h2 className="text-4xl font-normal mb-8 text-black">Product Highlights</h2>
+            <h2 className="text-5xl font-light mb-12 text-black tracking-tight">Product highlights</h2>
             
-            <div className="flex gap-6 md:gap-10 mb-12 text-sm tracking-[0.2em] uppercase border-b border-gray-200 overflow-x-auto whitespace-nowrap">
+            <div className="flex gap-8 mb-12 text-sm uppercase tracking-widest overflow-x-auto whitespace-nowrap">
               <button 
                 onClick={() => setActiveTab('banchay')}
-                className={`pb-2 -mb-[1px] transition-colors ${activeTab === 'banchay' ? 'text-black font-semibold border-b-2 border-black' : 'text-gray-400 hover:text-black border-b-2 border-transparent'}`}
+                className={`pb-1 transition-colors ${activeTab === 'banchay' ? 'text-black font-bold border-b-2 border-black' : 'text-gray-400 hover:text-black border-transparent'}`}
               >
-                Sản phẩm bán chạy
+                Best sellers
               </button>
               <button 
                 onClick={() => setActiveTab('mayanh')}
-                className={`pb-2 -mb-[1px] transition-colors ${activeTab === 'mayanh' ? 'text-black font-semibold border-b-2 border-black' : 'text-gray-400 hover:text-black border-b-2 border-transparent'}`}
+                className={`pb-1 transition-colors ${activeTab === 'mayanh' ? 'text-black font-bold border-b-2 border-black' : 'text-gray-400 hover:text-black border-transparent'}`}
               >
-                Máy ảnh
+                Cameras
               </button>
               <button 
                 onClick={() => setActiveTab('lens')}
-                className={`pb-2 -mb-[1px] transition-colors ${activeTab === 'lens' ? 'text-black font-semibold border-b-2 border-black' : 'text-gray-400 hover:text-black border-b-2 border-transparent'}`}
+                className={`pb-1 transition-colors ${activeTab === 'lens' ? 'text-black font-bold border-b-2 border-black' : 'text-gray-400 hover:text-black border-transparent'}`}
               >
-                Lens
+                Lenses
               </button>
             </div>
 
             <div className="relative">
-              {/* Left Arrow */}
-              <button className="absolute left-0 top-1/2 -translate-y-1/2 -ml-5 z-10 w-12 h-12 bg-[#f0f0f0] hover:bg-gray-200 rounded-full flex items-center justify-center shadow-sm transition-colors">
-                <span className="material-symbols-outlined text-gray-600 text-sm">arrow_back</span>
-              </button>
-
               {/* Product Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {activeTab === 'banchay' && (
                   <>
-                    <Link to="/product/1" className="bg-[#f6f6f6] h-[650px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#ebebeb] block animate-in fade-in duration-500">
-                      <h3 className="text-base tracking-widest text-black/80 font-medium">SONY ALPHA A7R V</h3>
-                      <div className="w-full flex justify-center py-10 flex-1 items-center">
+                    <Link to="/product/19" className="bg-[#f4f4f4] h-[600px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#eaeaea] block animate-in fade-in duration-500 relative overflow-hidden">
+                      <div className="z-10 relative">
+                        <h3 className="text-[32px] font-normal text-black mb-2 tracking-tight">Leica Q3 Monochrom</h3>
+                        <p className="text-black/60 text-sm font-medium">Q3 Series</p>
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center p-12 pointer-events-none">
                         <img 
-                          alt="Sony Alpha A7R V" 
-                          className="w-full max-w-[340px] object-contain group-hover:scale-[1.03] transition-transform duration-700" 
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKqxG8LoTVre5HMV1aof3CykIQ88GM7zbyrhDPkuJxWSGSLgCKMWhQf4MXh2nDCLp6RKFXUVEdfDQCsSxRtGdrSe7ye3itx-O4ejdzL6EFeiDN4Lm5cUJR20I1NXIGdZE3IXji-AoNUHQLSMG3xEIcR_2VrDWC3xEXqOwl5eTD9UbxSHHqMnuI6skmQ-r6B2fHHQW4_8dFCfvbT5jMxWkfxkrZlf6ICSmsVy_JxnhAuFm976PUTD-2VGijAtIX2elr8Lw32mMD_Q"
+                          alt="Leica Q3 Monochrom" 
+                          className="w-full max-w-[280px] object-contain group-hover:scale-105 transition-transform duration-700 pointer-events-auto" 
+                          src="https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-124986-19200_Leica_Q3_Monochrom_front_1920px.webp?itok=7G711CH8"
                         />
                       </div>
-                      <div className="text-center w-full">
-                        <span className="flex items-center justify-center gap-2 text-sm text-black/60 group-hover:text-black transition-colors">
-                          Discover <span className="material-symbols-outlined text-[10px]">arrow_forward_ios</span>
+                      <div className="z-10 relative flex justify-start">
+                        <span className="flex items-center gap-2 text-sm font-semibold text-black hover:underline underline-offset-4 transition-all uppercase tracking-widest">
+                          Shop now <span className="material-symbols-outlined text-sm">arrow_forward</span>
                         </span>
                       </div>
                     </Link>
 
-                    <Link to="/product/2" className="bg-[#d9d9d9] h-[650px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#d0d0d0] block animate-in fade-in duration-500">
-                      <h3 className="text-base tracking-widest text-black/80 font-medium">CANON EOS R6 MARK II</h3>
-                      <div className="w-full flex justify-center py-10 flex-1 items-center">
+                    <Link to="/product/20" className="bg-[#f4f4f4] h-[600px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#eaeaea] block animate-in fade-in duration-500 relative overflow-hidden">
+                      <div className="z-10 relative">
+                        <h3 className="text-[32px] font-normal text-black mb-2 tracking-tight">Leica SL3 Reporter</h3>
+                        <p className="text-black/60 text-sm font-medium">Phiên bản phóng viên</p>
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center p-12 pointer-events-none">
                         <img 
-                          alt="Canon EOS R6 Mark II" 
-                          className="w-[110%] max-w-[400px] object-contain group-hover:scale-[1.03] transition-transform duration-700 -ml-4" 
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnwFLC_QL8JUcbO7TJ4qu6fbgU_k6KizBo7lscL_dfSjSCmIV49O8eEI9D-cAjQJ6UN65oUEPsTBPAlzjySP4HAfRWEKY-IO263bez2cpsq0dwev_8z8be6vtLrA4O6QXTg9jxspqH-PaFA6w4Ze5AXL30RMgpNlRf-RndjtNmNubpjwcAq0NEjSF7JpLIpvomq3zPIONcPQl7eIb8Vm1o0MwoinzbjNo3iJc2a7brQEAZhsqPPsB48W350VIBHm3WwFgEvs9Ljw"
+                          alt="Leica SL3 Reporter" 
+                          className="w-[110%] max-w-[340px] object-contain group-hover:scale-105 transition-transform duration-700 pointer-events-auto -ml-4" 
+                          src="https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-124798-10661_Leica_SL3_Reporter_front_1920px.webp?itok=PaXtg7Tq"
                         />
                       </div>
-                      <div className="text-center w-full">
-                        <span className="flex items-center justify-center gap-2 text-sm text-black/60 group-hover:text-black transition-colors">
-                          Discover <span className="material-symbols-outlined text-[10px]">arrow_forward_ios</span>
+                      <div className="z-10 relative flex justify-start">
+                        <span className="flex items-center gap-2 text-sm font-semibold text-black hover:underline underline-offset-4 transition-all uppercase tracking-widest">
+                          Shop now <span className="material-symbols-outlined text-sm">arrow_forward</span>
                         </span>
                       </div>
                     </Link>
 
-                    <Link to="/product/3" className="bg-[#f6f6f6] h-[650px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#ebebeb] block animate-in fade-in duration-500">
-                      <h3 className="text-base tracking-widest text-black/80 font-medium">FUJIFILM X-T5</h3>
-                      <div className="w-full flex justify-center py-10 flex-1 items-center">
+                    <Link to="/product/17" className="bg-[#f4f4f4] h-[600px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#eaeaea] block animate-in fade-in duration-500 relative overflow-hidden">
+                      <div className="z-10 relative">
+                        <h3 className="text-[32px] font-normal text-black mb-2 tracking-tight">Leica Leitzphone</h3>
+                        <p className="text-black/60 text-sm font-medium">powered by Xiaomi</p>
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center p-12 pointer-events-none">
                         <img 
-                          alt="Fujifilm X-T5" 
-                          className="w-full max-w-[340px] object-contain group-hover:scale-[1.03] transition-transform duration-700" 
-                          src="https://lh3.googleusercontent.com/aida/ADBb0uhLdCXbXkySfd0sVS5L2AyNxwFjiL90BhGc2BY9LbVnMvGsbYl9ptiYNizolhlyhOkryXVN6OeayWYqwpK4MQvVZrgP9CwdSlSXt6Q6yRfIxBVVeyRZcxbf4S9MJTUDsfO8ZcAABoN7hGHD5c3Qa8cxhqhwhlivhjEMO-45afqymFLN5VIQF7-vKL6O_1de63DxnxvvCENKz1MQpoU0OgJNnoV4xHwS7AQtXoGTsoHou9dbXPT-ibECEnQaVgJmI21umlXdPM4Z"
+                          alt="Leica Leitzphone" 
+                          className="w-full max-w-[280px] object-contain group-hover:scale-105 transition-transform duration-700 pointer-events-auto" 
+                          src="https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-127081-Leitzphone_Black_Back_1920x1440px.webp?itok=DTtfUwdc"
                         />
                       </div>
-                      <div className="text-center w-full">
-                        <span className="flex items-center justify-center gap-2 text-sm text-black/60 group-hover:text-black transition-colors">
-                          Discover <span className="material-symbols-outlined text-[10px]">arrow_forward_ios</span>
+                      <div className="z-10 relative flex justify-start">
+                        <span className="flex items-center gap-2 text-sm font-semibold text-black hover:underline underline-offset-4 transition-all uppercase tracking-widest">
+                          Shop now <span className="material-symbols-outlined text-sm">arrow_forward</span>
                         </span>
                       </div>
                     </Link>
@@ -134,50 +138,59 @@ export default function Home() {
 
                 {activeTab === 'mayanh' && (
                   <>
-                    <Link to="/product/4" className="bg-[#f0f0f0] h-[650px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#e6e6e6] block animate-in fade-in duration-500">
-                      <h3 className="text-base tracking-widest text-black/80 font-medium">NIKON Z8</h3>
-                      <div className="w-full flex justify-center py-10 flex-1 items-center">
+                    <Link to="/product/1" className="bg-[#f4f4f4] h-[600px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#eaeaea] block animate-in fade-in duration-500 relative overflow-hidden">
+                      <div className="z-10 relative">
+                        <h3 className="text-[32px] font-normal text-black mb-2 tracking-tight">HP EOS 800D</h3>
+                        <p className="text-black/60 text-sm font-medium">BLUE</p>
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center p-12 pointer-events-none">
                         <img 
-                          alt="Nikon Z8" 
-                          className="w-full max-w-[340px] object-contain group-hover:scale-[1.03] transition-transform duration-700" 
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKqxG8LoTVre5HMV1aof3CykIQ88GM7zbyrhDPkuJxWSGSLgCKMWhQf4MXh2nDCLp6RKFXUVEdfDQCsSxRtGdrSe7ye3itx-O4ejdzL6EFeiDN4Lm5cUJR20I1NXIGdZE3IXji-AoNUHQLSMG3xEIcR_2VrDWC3xEXqOwl5eTD9UbxSHHqMnuI6skmQ-r6B2fHHQW4_8dFCfvbT5jMxWkfxkrZlf6ICSmsVy_JxnhAuFm976PUTD-2VGijAtIX2elr8Lw32mMD_Q"
+                          alt="HP EOS 800D" 
+                          className="w-full max-w-[280px] object-contain group-hover:scale-105 transition-transform duration-700 pointer-events-auto" 
+                          src="https://chomayanh.vn/wp-content/uploads/2026/04/kisspng-single-lens-reflex-camera-photography-digital-came-7d-side-5ab06dcdd82109-8187864315215118858853.png"
                         />
                       </div>
-                      <div className="text-center w-full">
-                        <span className="flex items-center justify-center gap-2 text-sm text-black/60 group-hover:text-black transition-colors">
-                          Discover <span className="material-symbols-outlined text-[10px]">arrow_forward_ios</span>
+                      <div className="z-10 relative flex justify-start">
+                        <span className="flex items-center gap-2 text-sm font-semibold text-black hover:underline underline-offset-4 transition-all uppercase tracking-widest">
+                          Shop now <span className="material-symbols-outlined text-sm">arrow_forward</span>
                         </span>
                       </div>
                     </Link>
                     
-                    <Link to="/product/5" className="bg-[#e0e0e0] h-[650px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#d5d5d5] block animate-in fade-in duration-500">
-                      <h3 className="text-base tracking-widest text-black/80 font-medium">SONY ALPHA 1</h3>
-                      <div className="w-full flex justify-center py-10 flex-1 items-center">
+                    <Link to="/product/2" className="bg-[#f4f4f4] h-[600px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#eaeaea] block animate-in fade-in duration-500 relative overflow-hidden">
+                      <div className="z-10 relative">
+                        <h3 className="text-[32px] font-normal text-black mb-2 tracking-tight">HP EOS 600D</h3>
+                        <p className="text-black/60 text-sm font-medium">RED</p>
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center p-12 pointer-events-none">
                         <img 
-                          alt="Sony Alpha 1" 
-                          className="w-[110%] max-w-[400px] object-contain group-hover:scale-[1.03] transition-transform duration-700 -ml-4" 
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnwFLC_QL8JUcbO7TJ4qu6fbgU_k6KizBo7lscL_dfSjSCmIV49O8eEI9D-cAjQJ6UN65oUEPsTBPAlzjySP4HAfRWEKY-IO263bez2cpsq0dwev_8z8be6vtLrA4O6QXTg9jxspqH-PaFA6w4Ze5AXL30RMgpNlRf-RndjtNmNubpjwcAq0NEjSF7JpLIpvomq3zPIONcPQl7eIb8Vm1o0MwoinzbjNo3iJc2a7brQEAZhsqPPsB48W350VIBHm3WwFgEvs9Ljw"
+                          alt="HP EOS 600D" 
+                          className="w-[110%] max-w-[340px] object-contain group-hover:scale-105 transition-transform duration-700 pointer-events-auto -ml-4" 
+                          src="https://chomayanh.vn/wp-content/uploads/2026/04/pngtree-canon-png-free-download-png-image_11620600.png"
                         />
                       </div>
-                      <div className="text-center w-full">
-                        <span className="flex items-center justify-center gap-2 text-sm text-black/60 group-hover:text-black transition-colors">
-                          Discover <span className="material-symbols-outlined text-[10px]">arrow_forward_ios</span>
+                      <div className="z-10 relative flex justify-start">
+                        <span className="flex items-center gap-2 text-sm font-semibold text-black hover:underline underline-offset-4 transition-all uppercase tracking-widest">
+                          Shop now <span className="material-symbols-outlined text-sm">arrow_forward</span>
                         </span>
                       </div>
                     </Link>
 
-                    <Link to="/product/6" className="bg-[#f0f0f0] h-[650px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#e6e6e6] block animate-in fade-in duration-500">
-                      <h3 className="text-base tracking-widest text-black/80 font-medium">LUMIX DC-S5IIX</h3>
-                      <div className="w-full flex justify-center py-10 flex-1 items-center">
+                    <Link to="/product/3" className="bg-[#f4f4f4] h-[600px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#eaeaea] block animate-in fade-in duration-500 relative overflow-hidden">
+                      <div className="z-10 relative">
+                        <h3 className="text-[32px] font-normal text-black mb-2 tracking-tight">HP EOS 200D</h3>
+                        <p className="text-black/60 text-sm font-medium">CAM</p>
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center p-12 pointer-events-none">
                         <img 
-                          alt="Lumix S5IIX" 
-                          className="w-full max-w-[340px] object-contain group-hover:scale-[1.03] transition-transform duration-700" 
-                          src="https://lh3.googleusercontent.com/aida/ADBb0uhLdCXbXkySfd0sVS5L2AyNxwFjiL90BhGc2BY9LbVnMvGsbYl9ptiYNizolhlyhOkryXVN6OeayWYqwpK4MQvVZrgP9CwdSlSXt6Q6yRfIxBVVeyRZcxbf4S9MJTUDsfO8ZcAABoN7hGHD5c3Qa8cxhqhwhlivhjEMO-45afqymFLN5VIQF7-vKL6O_1de63DxnxvvCENKz1MQpoU0OgJNnoV4xHwS7AQtXoGTsoHou9dbXPT-ibECEnQaVgJmI21umlXdPM4Z"
+                          alt="HP EOS 200D" 
+                          className="w-full max-w-[280px] object-contain group-hover:scale-105 transition-transform duration-700 pointer-events-auto" 
+                          src="https://chomayanh.vn/wp-content/uploads/2026/04/Hinh_anh_-_Banner_top-removebg-preview.png"
                         />
                       </div>
-                      <div className="text-center w-full">
-                        <span className="flex items-center justify-center gap-2 text-sm text-black/60 group-hover:text-black transition-colors">
-                          Discover <span className="material-symbols-outlined text-[10px]">arrow_forward_ios</span>
+                      <div className="z-10 relative flex justify-start">
+                        <span className="flex items-center gap-2 text-sm font-semibold text-black hover:underline underline-offset-4 transition-all uppercase tracking-widest">
+                          Shop now <span className="material-symbols-outlined text-sm">arrow_forward</span>
                         </span>
                       </div>
                     </Link>
@@ -186,56 +199,66 @@ export default function Home() {
 
                 {activeTab === 'lens' && (
                   <>
-                    <Link to="/product/7" className="bg-[#f6f6f6] h-[650px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#ebebeb] block animate-in fade-in duration-500">
-                      <h3 className="text-base tracking-widest text-black/80 font-medium">CANON RF 50MM F/1.2L</h3>
-                      <div className="w-full flex justify-center py-10 flex-1 items-center">
+                    <Link to="/product/18" className="bg-[#f4f4f4] h-[600px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#eaeaea] block animate-in fade-in duration-500 relative overflow-hidden">
+                      <div className="z-10 relative">
+                        <h3 className="text-[32px] font-normal text-black mb-2 tracking-tight">Noctilux-M 35 f/1.2 ASPH.</h3>
+                        <p className="text-black/60 text-sm font-medium">Masterpiece.</p>
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center p-12 pointer-events-none">
                         <img 
-                          alt="Canon Lens" 
-                          className="w-full max-w-[280px] object-contain group-hover:scale-[1.03] transition-transform duration-700" 
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCSlHGyw4E5vcRH1HLKTE81_YiwtdPB9KS3DaL4elPNXiE8shlcHSANA-DfmOP88FdxVBaBc_xfD1Yiidx6jcKjVMLTQ48SBZx8tpzmFvsfv8QbooHlwDzGUyosRHYmEpgG_rCrEi48110gvFUAyZgSHtwau-iclSQKBsrLXYCTptS4IKu5akTMCwukD66mAI250Yxnn3EvjKoA5pVvEuL13wYr5XnjFRBShRbdJ1qxIGDdM_OgBESSbZVwt1doNBcXsNlipSE8A"
+                          alt="Noctilux Lens" 
+                          className="w-full max-w-[200px] object-contain group-hover:scale-105 transition-transform duration-700 pointer-events-auto" 
+                          src="https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-126378-11635_Leica_Noctilux-M_35_f1_2_ASPH_upright_1920px.webp?itok=mD93j4l5"
                         />
                       </div>
-                      <div className="text-center w-full">
-                        <span className="flex items-center justify-center gap-2 text-sm text-black/60 group-hover:text-black transition-colors">
-                          Discover <span className="material-symbols-outlined text-[10px]">arrow_forward_ios</span>
+                      <div className="z-10 relative flex justify-start">
+                        <span className="flex items-center gap-2 text-sm font-semibold text-black hover:underline underline-offset-4 transition-all uppercase tracking-widest">
+                          Shop now <span className="material-symbols-outlined text-sm">arrow_forward</span>
                         </span>
                       </div>
                     </Link>
 
-                    <Link to="/product/8" className="bg-[#e5e5e5] h-[650px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#dddddd] block animate-in fade-in duration-500">
-                      <h3 className="text-base tracking-widest text-black/80 font-medium">SONY FE 135MM F/1.8 GM</h3>
-                      <div className="w-full flex justify-center py-10 flex-1 items-center">
+                    <Link to="/product/24" className="bg-[#f4f4f4] h-[600px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#eaeaea] block animate-in fade-in duration-500 relative overflow-hidden">
+                      <div className="z-10 relative">
+                        <h3 className="text-[32px] font-normal text-black mb-2 tracking-tight">Vario-Elmarit-SL 28-70</h3>
+                        <p className="text-black/60 text-sm font-medium">Versatility.</p>
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center p-12 pointer-events-none">
                         <img 
-                          alt="Sony Lens" 
-                          className="w-full max-w-[280px] object-contain group-hover:scale-[1.03] transition-transform duration-700" 
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCSlHGyw4E5vcRH1HLKTE81_YiwtdPB9KS3DaL4elPNXiE8shlcHSANA-DfmOP88FdxVBaBc_xfD1Yiidx6jcKjVMLTQ48SBZx8tpzmFvsfv8QbooHlwDzGUyosRHYmEpgG_rCrEi48110gvFUAyZgSHtwau-iclSQKBsrLXYCTptS4IKu5akTMCwukD66mAI250Yxnn3EvjKoA5pVvEuL13wYr5XnjFRBShRbdJ1qxIGDdM_OgBESSbZVwt1doNBcXsNlipSE8A"
+                          alt="Vario Lens" 
+                          className="w-full max-w-[200px] object-contain group-hover:scale-105 transition-transform duration-700 pointer-events-auto" 
+                          src="https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-122438-11196_Leica_Vario-Elmarit-SL_28-70_f_2_8_upright_1920px.webp?itok=tuhOX3yO"
                         />
                       </div>
-                      <div className="text-center w-full">
-                        <span className="flex items-center justify-center gap-2 text-sm text-black/60 group-hover:text-black transition-colors">
-                          Discover <span className="material-symbols-outlined text-[10px]">arrow_forward_ios</span>
+                      <div className="z-10 relative flex justify-start">
+                        <span className="flex items-center gap-2 text-sm font-semibold text-black hover:underline underline-offset-4 transition-all uppercase tracking-widest">
+                          Shop now <span className="material-symbols-outlined text-sm">arrow_forward</span>
                         </span>
                       </div>
                     </Link>
 
-                    <Link to="/product/9" className="bg-[#f6f6f6] h-[650px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#ebebeb] block animate-in fade-in duration-500">
-                      <h3 className="text-base tracking-widest text-black/80 font-medium">NIKON Z 70-200MM F/2.8</h3>
-                      <div className="w-full flex justify-center py-10 flex-1 items-center">
+                    <Link to="/product/21" className="bg-[#f4f4f4] h-[600px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#eaeaea] block animate-in fade-in duration-500 relative overflow-hidden">
+                      <div className="z-10 relative">
+                        <h3 className="text-[32px] font-normal text-black mb-2 tracking-tight">Leica M EV1</h3>
+                        <p className="text-black/60 text-sm font-medium">New System.</p>
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center p-12 pointer-events-none">
                         <img 
-                          alt="Nikon Lens" 
-                          className="w-full max-w-[280px] object-contain group-hover:scale-[1.03] transition-transform duration-700" 
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCSlHGyw4E5vcRH1HLKTE81_YiwtdPB9KS3DaL4elPNXiE8shlcHSANA-DfmOP88FdxVBaBc_xfD1Yiidx6jcKjVMLTQ48SBZx8tpzmFvsfv8QbooHlwDzGUyosRHYmEpgG_rCrEi48110gvFUAyZgSHtwau-iclSQKBsrLXYCTptS4IKu5akTMCwukD66mAI250Yxnn3EvjKoA5pVvEuL13wYr5XnjFRBShRbdJ1qxIGDdM_OgBESSbZVwt1doNBcXsNlipSE8A"
+                          alt="Leica M EV1" 
+                          className="w-full max-w-[200px] object-contain group-hover:scale-105 transition-transform duration-700 pointer-events-auto" 
+                          src="https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-124583-20229_Leica_M_EV1_front_1920px.webp?itok=Q6m5G-Hd"
                         />
                       </div>
-                      <div className="text-center w-full">
-                        <span className="flex items-center justify-center gap-2 text-sm text-black/60 group-hover:text-black transition-colors">
-                          Discover <span className="material-symbols-outlined text-[10px]">arrow_forward_ios</span>
+                      <div className="z-10 relative flex justify-start">
+                        <span className="flex items-center gap-2 text-sm font-semibold text-black hover:underline underline-offset-4 transition-all uppercase tracking-widest">
+                          Shop now <span className="material-symbols-outlined text-sm">arrow_forward</span>
                         </span>
                       </div>
                     </Link>
                   </>
                 )}
               </div>
+
 
               {/* Right Arrow */}
               <button className="absolute right-0 top-1/2 -translate-y-1/2 -mr-5 z-10 w-12 h-12 bg-[#666666] hover:bg-gray-700 text-white rounded-full flex items-center justify-center shadow-lg transition-colors">
@@ -281,9 +304,9 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
               {/* Product 1 */}
               <div className="bg-[#f6f6f6] h-[600px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#ebebeb]">
-                <h3 className="text-base tracking-widest text-black/80 font-medium">CANON RF 85MM F/1.2L</h3>
+                <h3 className="text-base tracking-widest text-black/80 font-medium uppercase">LEICA D-LUX 8</h3>
                 <div className="w-full flex justify-center py-10 flex-1 items-center">
-                  <img className="w-full max-w-[280px] object-contain group-hover:scale-[1.03] transition-transform duration-700 drop-shadow-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCSlHGyw4E5vcRH1HLKTE81_YiwtdPB9KS3DaL4elPNXiE8shlcHSANA-DfmOP88FdxVBaBc_xfD1Yiidx6jcKjVMLTQ48SBZx8tpzmFvsfv8QbooHlwDzGUyosRHYmEpgG_rCrEi48110gvFUAyZgSHtwau-iclSQKBsrLXYCTptS4IKu5akTMCwukD66mAI250Yxnn3EvjKoA5pVvEuL13wYr5XnjFRBShRbdJ1qxIGDdM_OgBESSbZVwt1doNBcXsNlipSE8A" alt="Canon Lens"/>
+                  <img className="w-full max-w-[280px] object-contain group-hover:scale-[1.03] transition-transform duration-700 drop-shadow-xl" src="https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-122758-19197_D-Lux-8_100-YEARS-OF-LEICA_front_1920px.webp?itok=Yu9n9qcW" alt="D-Lux 8"/>
                 </div>
                 <div className="text-center w-full">
                   <span className="flex items-center justify-center gap-2 text-sm text-black/60 group-hover:text-black transition-colors">
@@ -294,9 +317,9 @@ export default function Home() {
 
               {/* Product 2 */}
               <div className="bg-[#d9d9d9] h-[600px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#d0d0d0]">
-                <h3 className="text-base tracking-widest text-black/80 font-medium">SONY FE 24-70MM F/2.8 GM II</h3>
+                <h3 className="text-base tracking-widest text-black/80 font-medium uppercase">LEICA SOFORT 2</h3>
                 <div className="w-full flex justify-center py-10 flex-1 items-center">
-                  <img className="w-full max-w-[280px] object-contain group-hover:scale-[1.03] transition-transform duration-700 drop-shadow-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCSlHGyw4E5vcRH1HLKTE81_YiwtdPB9KS3DaL4elPNXiE8shlcHSANA-DfmOP88FdxVBaBc_xfD1Yiidx6jcKjVMLTQ48SBZx8tpzmFvsfv8QbooHlwDzGUyosRHYmEpgG_rCrEi48110gvFUAyZgSHtwau-iclSQKBsrLXYCTptS4IKu5akTMCwukD66mAI250Yxnn3EvjKoA5pVvEuL13wYr5XnjFRBShRbdJ1qxIGDdM_OgBESSbZVwt1doNBcXsNlipSE8A" alt="Sony Lens"/>
+                  <img className="w-full max-w-[280px] object-contain group-hover:scale-[1.03] transition-transform duration-700 drop-shadow-xl" src="https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-122768-19195_SOFORT-2_100-YEARS-OF-LEICA_front_lenscap_1920px.webp?itok=FgP1G3vc" alt="SOFORT 2"/>
                 </div>
                 <div className="text-center w-full">
                   <span className="flex items-center justify-center gap-2 text-sm text-black/60 group-hover:text-black transition-colors">
@@ -307,9 +330,9 @@ export default function Home() {
 
               {/* Product 3 */}
               <div className="bg-[#f6f6f6] h-[600px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#ebebeb]">
-                <h3 className="text-base tracking-widest text-black/80 font-medium">NIKON Z 50MM F/1.2 S</h3>
+                <h3 className="text-base tracking-widest text-black/80 font-medium uppercase">LEICA ZM 2 URBAN GREEN</h3>
                 <div className="w-full flex justify-center py-10 flex-1 items-center">
-                  <img className="w-full max-w-[280px] object-contain group-hover:scale-[1.03] transition-transform duration-700 drop-shadow-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCSlHGyw4E5vcRH1HLKTE81_YiwtdPB9KS3DaL4elPNXiE8shlcHSANA-DfmOP88FdxVBaBc_xfD1Yiidx6jcKjVMLTQ48SBZx8tpzmFvsfv8QbooHlwDzGUyosRHYmEpgG_rCrEi48110gvFUAyZgSHtwau-iclSQKBsrLXYCTptS4IKu5akTMCwukD66mAI250Yxnn3EvjKoA5pVvEuL13wYr5XnjFRBShRbdJ1qxIGDdM_OgBESSbZVwt1doNBcXsNlipSE8A" alt="Nikon Lens"/>
+                  <img className="w-full max-w-[280px] object-contain group-hover:scale-[1.03] transition-transform duration-700 drop-shadow-xl" src="https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-122321-98289_Leica_ZM2_Urban_Green_Milanaise_Stainless_Steel_metal_bracelet_front_1920px_0.webp?itok=TCzr9h9b" alt="Leica ZM 2"/>
                 </div>
                 <div className="text-center w-full">
                   <span className="flex items-center justify-center gap-2 text-sm text-black/60 group-hover:text-black transition-colors">
@@ -320,9 +343,9 @@ export default function Home() {
 
               {/* Product 4 */}
               <div className="bg-[#f6f6f6] h-[600px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#ebebeb]">
-                <h3 className="text-base tracking-widest text-black/80 font-medium">FUJIFILM XF 56MM F/1.2 R</h3>
+                <h3 className="text-base tracking-widest text-black/80 font-medium uppercase">LEICA M11-P SAFARI</h3>
                 <div className="w-full flex justify-center py-10 flex-1 items-center">
-                  <img className="w-full max-w-[280px] object-contain group-hover:scale-[1.03] transition-transform duration-700 drop-shadow-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCSlHGyw4E5vcRH1HLKTE81_YiwtdPB9KS3DaL4elPNXiE8shlcHSANA-DfmOP88FdxVBaBc_xfD1Yiidx6jcKjVMLTQ48SBZx8tpzmFvsfv8QbooHlwDzGUyosRHYmEpgG_rCrEi48110gvFUAyZgSHtwau-iclSQKBsrLXYCTptS4IKu5akTMCwukD66mAI250Yxnn3EvjKoA5pVvEuL13wYr5XnjFRBShRbdJ1qxIGDdM_OgBESSbZVwt1doNBcXsNlipSE8A" alt="Fujifilm Lens"/>
+                  <img className="w-full max-w-[280px] object-contain group-hover:scale-[1.03] transition-transform duration-700 drop-shadow-xl" src="https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-121649-20235_M11-P_safari_front_1920px.webp?itok=RksBjFaK" alt="Leica M11-P"/>
                 </div>
                 <div className="text-center w-full">
                   <span className="flex items-center justify-center gap-2 text-sm text-black/60 group-hover:text-black transition-colors">
@@ -333,9 +356,9 @@ export default function Home() {
 
               {/* Product 5 */}
               <div className="bg-[#f0f0f0] h-[600px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#e0e0e0]">
-                <h3 className="text-base tracking-widest text-black/80 font-medium">CANON RF 28-70MM F/2L</h3>
+                <h3 className="text-base tracking-widest text-black/80 font-medium uppercase">LEICA M11-P</h3>
                 <div className="w-full flex justify-center py-10 flex-1 items-center">
-                  <img className="w-full max-w-[280px] object-contain group-hover:scale-[1.03] transition-transform duration-700 drop-shadow-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCSlHGyw4E5vcRH1HLKTE81_YiwtdPB9KS3DaL4elPNXiE8shlcHSANA-DfmOP88FdxVBaBc_xfD1Yiidx6jcKjVMLTQ48SBZx8tpzmFvsfv8QbooHlwDzGUyosRHYmEpgG_rCrEi48110gvFUAyZgSHtwau-iclSQKBsrLXYCTptS4IKu5akTMCwukD66mAI250Yxnn3EvjKoA5pVvEuL13wYr5XnjFRBShRbdJ1qxIGDdM_OgBESSbZVwt1doNBcXsNlipSE8A" alt="Canon 28-70"/>
+                  <img className="w-full max-w-[280px] object-contain group-hover:scale-[1.03] transition-transform duration-700 drop-shadow-xl" src="https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-101774-Leica_M11-P_black_front_1920x1440px.png.webp?itok=f25_LK0k" alt="Leica M11-P Black"/>
                 </div>
                 <div className="text-center w-full">
                   <span className="flex items-center justify-center gap-2 text-sm text-black/60 group-hover:text-black transition-colors">
@@ -346,9 +369,9 @@ export default function Home() {
 
               {/* Product 6 */}
               <div className="bg-[#f6f6f6] h-[600px] p-10 flex flex-col justify-between group cursor-pointer transition-colors hover:bg-[#ebebeb]">
-                <h3 className="text-base tracking-widest text-black/80 font-medium">SONY FE 16-35MM F/2.8 GM</h3>
+                <h3 className="text-base tracking-widest text-black/80 font-medium uppercase">LEICA Q3 43</h3>
                 <div className="w-full flex justify-center py-10 flex-1 items-center">
-                  <img className="w-full max-w-[280px] object-contain group-hover:scale-[1.03] transition-transform duration-700 drop-shadow-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCSlHGyw4E5vcRH1HLKTE81_YiwtdPB9KS3DaL4elPNXiE8shlcHSANA-DfmOP88FdxVBaBc_xfD1Yiidx6jcKjVMLTQ48SBZx8tpzmFvsfv8QbooHlwDzGUyosRHYmEpgG_rCrEi48110gvFUAyZgSHtwau-iclSQKBsrLXYCTptS4IKu5akTMCwukD66mAI250Yxnn3EvjKoA5pVvEuL13wYr5XnjFRBShRbdJ1qxIGDdM_OgBESSbZVwt1doNBcXsNlipSE8A" alt="Sony 16-35"/>
+                  <img className="w-full max-w-[280px] object-contain group-hover:scale-[1.03] transition-transform duration-700 drop-shadow-xl" src="https://leica-camera.com/sites/default/files/styles/product_medium_teaser_media_3x2_desktop/public/pm-113007-Leica_Q3-43_front_PIM_1920x1440.png.webp?itok=JTmuM0tL" alt="Leica Q3 43"/>
                 </div>
                 <div className="text-center w-full">
                   <span className="flex items-center justify-center gap-2 text-sm text-black/60 group-hover:text-black transition-colors">
